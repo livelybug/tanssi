@@ -257,6 +257,8 @@ xcm-runtime-apis = { git = "https://github.com/moondance-labs/polkadot-sdk", bra
 
 
 # Bridges (wasm)
+alloy-primitives = { version = "0.4.2", default-features = false }
+alloy-sol-types = { version = "0.4.2", default-features = false }
 milagro-bls = { package = "snowbridge-milagro-bls", version = "1.5.4", default-features = false }
 snowbridge-beacon-primitives = { git = "https://github.com/moondance-labs/polkadot-sdk", branch = "tomasz-generic-aggregate-message-origin", default-features = false }
 snowbridge-core = { git = "https://github.com/moondance-labs/polkadot-sdk", branch = "tomasz-generic-aggregate-message-origin", default-features = false }
