@@ -18,17 +18,27 @@
 
 pub const SLOTS_PER_EPOCH: u32 = snowbridge_pallet_ethereum_client::config::SLOTS_PER_EPOCH as u32;
 
+
+use frame_support::weights::ConstantMultiplier;
+use parity_scale_codec::Encode;
+use snowbridge_router_primitives::inbound::{ConvertMessage, ConvertMessageError, VersionedMessage};
+use sp_core::{ConstU32, ConstU8};
+use xcm::latest::{Assets, Location, SendError, SendResult, SendXcm, Xcm, XcmHash};
 use {
     crate::{
         parameter_types, weights, AggregateMessageOrigin, Balance, Balances, EthereumOutboundQueue,
         EthereumSystem, FixedU128, GetAggregateMessageOrigin, Keccak256, MessageQueue, Runtime,
-        RuntimeEvent, TreasuryAccount, WeightToFee, UNITS,
+        RuntimeEvent, TreasuryAccount, WeightToFee, UNITS, xcm_config, AccountId, TransactionByteFee
     },
     pallet_xcm::EnsureXcm,
     snowbridge_beacon_primitives::{Fork, ForkVersions},
     snowbridge_core::{gwei, meth, AllowSiblingsOnly, PricingParameters, Rewards},
-    sp_core::{ConstU32, ConstU8},
 };
+
+// Ethereum Bridge
+parameter_types! {
+	pub storage EthereumGatewayAddress: H160 = H160(hex_literal::hex!("EDa338E4dC46038493b885327842fD3E301CaB39"));
+}
 
 parameter_types! {
     pub Parameters: PricingParameters<u128> = PricingParameters {
@@ -156,3 +166,56 @@ mod benchmark_helper {
         }
     }
 }
+
+pub struct DoNothingRouter;
+impl SendXcm for DoNothingRouter {
+    type Ticket = Xcm<()>;
+
+    fn validate(
+        _dest: &mut Option<Location>,
+        xcm: &mut Option<Xcm<()>>,
+    ) -> SendResult<Self::Ticket> {
+        Ok((xcm.clone().unwrap(), Assets::new()))
+    }
+    fn deliver(xcm: Xcm<()>) -> Result<XcmHash, SendError> {
+        let hash = xcm.using_encoded(sp_io::hashing::blake2_256);
+        Ok(hash)
+    }
+}
+
+pub struct DoNothingConvertMessage;
+
+impl ConvertMessage for DoNothingConvertMessage {
+    type Balance = Balance;
+    type AccountId = AccountId;
+
+    fn convert(message: VersionedMessage) -> Result<(Xcm<()>, Self::Balance), ConvertMessageError> {
+        Err(ConvertMessageError::UnsupportedVersion)
+    }
+}
+
+impl snowbridge_pallet_system::BenchmarkHelper<RuntimeOrigin> for () {
+    fn make_xcm_origin(location: Location) -> RuntimeOrigin {
+        RuntimeOrigin::from(pallet_xcm::Origin::Xcm(location))
+    }
+}
+
+impl snowbridge_pallet_inbound_queue::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type Verifier = EthereumBeaconClient;
+    type Token = Balances;
+    type XcmSender = DoNothingRouter;
+    type GatewayAddress = EthereumGatewayAddress;
+    type MessageConverter = DoNothingConvertMessage;
+    type ChannelLookup = EthereumSystem;
+    type PricingParameters = EthereumSystem;
+    type WeightInfo = ();
+    #[cfg(feature = "runtime-benchmarks")]
+    type Helper = Runtime;
+    type WeightToFee = WeightToFee;
+    type LengthToFee = ConstantMultiplier<Balance, TransactionByteFee>;
+    type MaxMessageSize = ConstU32<2048>;
+    type AssetTransactor = <xcm_config::XcmConfig as xcm_executor::Config>::AssetTransactor;
+    type MessageProcessor = ();
+}
+

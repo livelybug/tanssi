@@ -148,6 +148,7 @@ use dancelight_runtime_constants::{currency::*, fee::*, time::*};
 pub mod xcm_config;
 
 pub mod bridge_to_ethereum_config;
+pub mod symbiotic_message_processor;
 
 // Weights
 mod weights;
@@ -1718,7 +1719,7 @@ construct_runtime! {
 
         // Bridging stuff
         // https://github.com/paritytech/polkadot-sdk/blob/2ae79be8e028a995b850621ee55f46c041eceefe/cumulus/parachains/runtimes/bridge-hubs/bridge-hub-westend/src/lib.rs#L560C1-L560C64
-        //EthereumInboundQueue: snowbridge_pallet_inbound_queue = 80,
+        EthereumInboundQueue: snowbridge_pallet_inbound_queue = 80,
         EthereumOutboundQueue: snowbridge_pallet_outbound_queue = 101,
         // TODO: already exists, at index 243
         //EthereumBeaconClient: snowbridge_pallet_ethereum_client = 82,
