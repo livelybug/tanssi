@@ -13,6 +13,10 @@ targets = [ "x86_64-unknown-linux-gnu" ]
 workspace = true
 
 [dependencies]
+# Lottery
+pallet-insecure-randomness-collective-flip = { workspace = true, default-features = false }
+pallet-lottery-example = { workspace = true, features = [ "std" ] }
+
 hex-literal = { workspace = true, optional = true }
 log = { workspace = true }
 parity-scale-codec = { workspace = true, features = [ "derive" ] }
@@ -108,6 +112,10 @@ substrate-wasm-builder = { workspace = true }
 [features]
 default = [ "std" ]
 std = [
+	# Lottery
+	"pallet-lottery-example/std",
+	"pallet-insecure-randomness-collective-flip/std",
+
 	"async-backing-primitives/std",
 	"cumulus-pallet-parachain-system/std",
 	"cumulus-pallet-session-benchmarking/std",

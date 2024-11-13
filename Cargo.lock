@@ -279,7 +279,7 @@ dependencies = [
  "num-bigint",
  "num-traits",
  "paste",
- "rustc_version",
+ "rustc_version 0.4.0",
  "zeroize",
 ]
 
@@ -2077,6 +2077,8 @@ dependencies = [
  "pallet-balances",
  "pallet-cc-authorities-noting",
  "pallet-foreign-asset-creator",
+ "pallet-insecure-randomness-collective-flip",
+ "pallet-lottery-example",
  "pallet-maintenance-mode",
  "pallet-message-queue",
  "pallet-migrations 0.1.0",
@@ -2997,7 +2999,7 @@ dependencies = [
  "curve25519-dalek-derive",
  "digest 0.10.7",
  "fiat-crypto",
- "rustc_version",
+ "rustc_version 0.4.0",
  "subtle 2.5.0",
  "zeroize",
 ]
@@ -3488,7 +3490,7 @@ dependencies = [
  "convert_case",
  "proc-macro2",
  "quote",
- "rustc_version",
+ "rustc_version 0.4.0",
  "syn 1.0.109",
 ]
 
@@ -9487,6 +9489,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-insecure-randomness-collective-flip"
+version = "25.0.0"
+source = "git+https://github.com/moondance-labs/polkadot-sdk?branch=tanssi-polkadot-stable2407#6edb0087ca8161746b50377dbb0455a535931487"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "safe-mix",
+ "scale-info",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-invulnerables"
 version = "0.1.0"
 dependencies = [
@@ -9505,6 +9520,20 @@ dependencies = [
  "sp-staking",
  "sp-std",
  "tp-traits",
+]
+
+[[package]]
+name = "pallet-lottery-example"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -13345,6 +13374,15 @@ checksum = "3e75f6a532d0fd9f7f13144f392b6ad56a32696bfcd9c78f797f16bbb6f072d6"
 
 [[package]]
 name = "rustc_version"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "138e3e0acb6c9fb258b19b67cb8abd63c00679d2851805ea151465464fe9030a"
+dependencies = [
+ "semver 0.9.0",
+]
+
+[[package]]
+name = "rustc_version"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366"
@@ -13571,6 +13609,15 @@ name = "ryu"
 version = "1.0.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f98d2aa92eebf49b69786be48e4477826b256916e84a57ff2a4f21923b48eb4c"
+
+[[package]]
+name = "safe-mix"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d3d055a2582e6b00ed7a31c1524040aa391092bf636328350813f3a0605215c"
+dependencies = [
+ "rustc_version 0.2.3",
+]
 
 [[package]]
 name = "safe_arch"
@@ -15076,6 +15123,15 @@ dependencies = [
 
 [[package]]
 name = "semver"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d7eb9ef2c18661902cc47e535f9bc51b78acd254da71d375c2f6720d9a40403"
+dependencies = [
+ "semver-parser",
+]
+
+[[package]]
+name = "semver"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b97ed7a9823b74f99c7742f5336af7be5ecd3eeafcb1507d1fa93347b1d589b0"
@@ -15555,7 +15611,7 @@ dependencies = [
  "curve25519-dalek",
  "rand_core",
  "ring 0.17.7",
- "rustc_version",
+ "rustc_version 0.4.0",
  "sha2 0.10.8",
  "subtle 2.5.0",
 ]
@@ -17159,7 +17215,7 @@ dependencies = [
 
 [[package]]
 name = "tanssi-relay"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "color-eyre",
  "polkadot-core-primitives",
@@ -17219,7 +17275,7 @@ dependencies = [
 
 [[package]]
 name = "tanssi-relay-service"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "assert_matches",
  "async-io 1.13.0",
