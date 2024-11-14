@@ -15,6 +15,7 @@ workspace = true
 [dependencies]
 # Lottery
 pallet-insecure-randomness-collective-flip = { workspace = true, default-features = false }
+#pallet-randomness-collective-flip = { workspace = true, default-features = false }
 pallet-lottery-example = { workspace = true, features = [ "std" ] }
 
 hex-literal = { workspace = true, optional = true }

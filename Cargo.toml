@@ -51,6 +51,7 @@ unsafe-code = { level = "deny", priority = 1 }
 # Lottery
 pallet-insecure-randomness-collective-flip = { git = "https://github.com/moondance-labs/polkadot-sdk", branch = "tanssi-polkadot-stable2407", default-features = false }
 pallet-lottery-example = { path = "pallets/lottery-example", default-features = false }
+#pallet-randomness-collective-flip = { version = "15.0.0", default-features = false }
 # Members
 pallet-author-noting = { path = "pallets/author-noting", default-features = false }
 pallet-author-noting-runtime-api = { path = "pallets/author-noting/runtime-api", default-features = false }
