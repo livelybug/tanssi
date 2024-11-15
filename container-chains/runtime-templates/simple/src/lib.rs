@@ -54,6 +54,7 @@ use {
             ConstantMultiplier, Weight, WeightToFee as _, WeightToFeeCoefficient,
             WeightToFeeCoefficients, WeightToFeePolynomial,
         },
+        PalletId,
     },
     frame_system::{
         limits::{BlockLength, BlockWeights},
@@ -701,6 +702,7 @@ construct_runtime!(
         RootTesting: pallet_root_testing = 100,
         AsyncBacking: pallet_async_backing::{Pallet, Storage} = 110,
 
+        EfToken: efg_token = 200,
     }
 );
 
@@ -1253,4 +1255,16 @@ cumulus_pallet_parachain_system::register_validate_block! {
     Runtime = Runtime,
     CheckInherents = CheckInherents,
     BlockExecutor = pallet_author_inherent::BlockExecutor::<Runtime, Executive>,
+}
+
+// Custom module id
+parameter_types! {
+    pub const EfTokenPalletId: PalletId = PalletId(*b"Ef_Token");
+}
+
+// Configuration for the ef token module
+impl efg_token::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type Currency = Balances;
+    type PalletId = EfTokenPalletId;
 }

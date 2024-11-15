@@ -48,6 +48,7 @@ type_complexity = { level = "allow", priority = 2 }
 unsafe-code = { level = "deny", priority = 1 }
 
 [workspace.dependencies]
+efg-token = { path = "pallets/efg-token", default-features = false }
 
 # Members
 pallet-author-noting = { path = "pallets/author-noting", default-features = false }

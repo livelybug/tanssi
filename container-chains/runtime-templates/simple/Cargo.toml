@@ -13,6 +13,8 @@ targets = [ "x86_64-unknown-linux-gnu" ]
 workspace = true
 
 [dependencies]
+efg-token = { workspace = true }
+
 hex-literal = { workspace = true, optional = true }
 log = { workspace = true }
 parity-scale-codec = { workspace = true, features = [ "derive" ] }
@@ -180,6 +182,7 @@ std = [
 	"tanssi-runtime-common/std",
 	"xcm-primitives/std",
 	"xcm-runtime-apis/std",
+	"efg-token/std",
 ]
 
 # Allow to print logs details (no wasm:stripped)

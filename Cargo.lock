@@ -2060,6 +2060,7 @@ dependencies = [
  "dp-consensus",
  "dp-impl-tanssi-pallets-config",
  "dp-slot-duration-runtime-api",
+ "efg-token",
  "frame-benchmarking",
  "frame-executive",
  "frame-support",
@@ -3828,6 +3829,21 @@ dependencies = [
  "rand_core",
  "sha2 0.10.8",
  "zeroize",
+]
+
+[[package]]
+name = "efg-token"
+version = "0.1.0"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -17159,7 +17175,7 @@ dependencies = [
 
 [[package]]
 name = "tanssi-relay"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "color-eyre",
  "polkadot-core-primitives",
@@ -17219,7 +17235,7 @@ dependencies = [
 
 [[package]]
 name = "tanssi-relay-service"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "assert_matches",
  "async-io 1.13.0",
